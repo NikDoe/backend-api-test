@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -5,8 +6,11 @@ const corsOptions = require('./config/corsOptions');
 const { logger } = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
 const cookieParser = require('cookie-parser');
+const connectDB = require('./config/dbConnection');
 const app = express();
 const PORT = process.env.PORT || 9000;
+
+connectDB();
 
 app.use(logger);
 app.use(cors(corsOptions));
