@@ -3,10 +3,11 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
-const { logger } = require('./middleware/logger');
+const { logger, logEvents } = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/dbConnection');
+const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 9000;
 
@@ -34,4 +35,11 @@ app.all('*', (req, res) => {
 
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`сервер запущен на порту ${PORT}`));
+mongoose.connection.once('open', () => {
+	console.log('База данных подключена');
+	app.listen(PORT, () => console.log(`сервер запущен на порту ${PORT}`));
+});
+
+mongoose.connection.on('error', err => {
+	logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`, 'mongoErrLog.log');
+});
