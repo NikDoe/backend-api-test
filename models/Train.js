@@ -5,18 +5,6 @@ const trainSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	departureTime: {
-		type: String,
-		required: true,
-	},
-	arrivalTime: {
-		type: String,
-		required: true,
-	},
-	wayTime: {
-		type: String,
-		required: true,
-	},
 	from: {
 		type: String,
 		required: true,
@@ -34,19 +22,6 @@ const trainSchema = new mongoose.Schema({
 	rating: {
 		type: Number,
 	},
-	vans: [
-		{
-			type: Number,
-			required: true,
-		},
-	],
-	vansTypes: [
-		{
-			type: String,
-			default: 'Сидячий',
-			required: true,
-		},
-	],
 	services: [
 		{
 			type: [Number],
