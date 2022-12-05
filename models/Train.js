@@ -28,11 +28,25 @@ const trainSchema = new mongoose.Schema({
 	type: [
 		{
 			type: String,
+			required: true,
 		},
 	],
 	rating: {
 		type: Number,
 	},
+	vans: [
+		{
+			type: Number,
+			required: true,
+		},
+	],
+	vansTypes: [
+		{
+			type: String,
+			default: 'Сидячий',
+			required: true,
+		},
+	],
 	services: [
 		{
 			type: [Number],
@@ -45,6 +59,4 @@ const trainSchema = new mongoose.Schema({
 	],
 });
 
-module.exports = mongoose.model('Plane', trainSchema);
-
-//a = 4:59, b = 15:37, c =
+module.exports = mongoose.model('Train', trainSchema);
